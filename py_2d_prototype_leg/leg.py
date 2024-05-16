@@ -30,7 +30,9 @@ class leg:
         print("#######################")
         print()
 
-    def updae_leg(self):
+    def update_leg(self):
+        for i in range(1, len(self.parts_list)):
+            self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
         self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
@@ -39,7 +41,7 @@ class leg:
 def create_leg(num_of_parts):
     part_list = []
     loc = FIXED_JOINT
-    part_list.append(legPart(loc, LEG_PART_LEN))
+    part_list.append(legPart(loc, LEG_PART_LEN, True))
     for i in range(1, num_of_parts):
         part_list.append(legPart(part_list[i-1], LEG_PART_LEN))
     leg1 = leg(part_list)
@@ -78,10 +80,13 @@ def main():
 
             for i in range(total-2, -1, -1):
                 leg1.parts_list[i].follow(leg1.parts_list[i+1].start_loc)
-                pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
+                #leg1.parts_list[i].end_loc = leg1.parts_list[i+1].start_loc
+
+            for p in leg1.parts_list:
+                pygame.draw.line(screen, RED, p.start_loc, p.end_loc, 5)
 
             pygame.display.flip()
-            leg1.updae_leg()
+            leg1.update_leg()
             leg1.leg_to_string()
 
             clock.tick(REFRESH_RATE)
