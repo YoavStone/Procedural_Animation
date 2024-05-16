@@ -73,13 +73,16 @@ def main():
             # if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             screen.fill(WHITE)
-            print("mouse: ", pos)
 
             leg1.parts_list[total-1].follow(pos)
             pygame.draw.line(screen, RED, leg1.parts_list[total-1].start_loc, leg1.parts_list[total-1].end_loc, 5)
 
             for i in range(total-2, -1, -1):
-                leg1.parts_list[i].follow(leg1.parts_list[i+1].start_loc)
+                target = leg1.parts_list[i+1].start_loc
+                # if math.dist(target, leg1.parts_list[i+1].start_loc) >= LEG_PART_LEN:
+                #     deg = angle_from_location(leg1.parts_list[i+1].start_loc, target)
+                #     target = angle_to_location(leg1.parts_list[i+1].start_loc, LEG_PART_LEN, deg)
+                leg1.parts_list[i].follow(target)
 
             for i in range(0, total-1):
                 leg1.update_leg()
