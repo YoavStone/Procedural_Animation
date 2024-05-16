@@ -73,8 +73,7 @@ def main():
             screen.fill(WHITE)
             print("mouse: ", pos)
 
-            end = leg1.parts_list[total-1]
-            end.follow(pos)
+            leg1.parts_list[total-1].follow(pos)
             pygame.draw.line(screen, RED, leg1.parts_list[total-1].start_loc, leg1.parts_list[total-1].end_loc, 5)
 
             for i in range(total-2, -1, -1):
