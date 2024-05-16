@@ -1,4 +1,5 @@
 import math
+import pygame
 from py_2d_prototype_leg.settings import *
 from py_2d_prototype_leg.legPart import *
 
@@ -47,6 +48,21 @@ def main():
     print("how many parts:")
     leg1 = create_leg(int(input()))
     leg1.leg_to_string()
+
+    pygame.init()
+
+    size = (WINDOW_WIDTH, WINDOW_HEIGHT)
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("Game")
+    screen.fill(WHITE)
+    pygame.display.flip()
+    finish = False
+    while not finish:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                finish = True
+
+    pygame.quit()
 
 
 if __name__ == "__main__":
