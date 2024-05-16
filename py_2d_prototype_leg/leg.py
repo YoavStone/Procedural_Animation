@@ -80,13 +80,12 @@ def main():
 
             for i in range(total-2, -1, -1):
                 leg1.parts_list[i].follow(leg1.parts_list[i+1].start_loc)
-                #leg1.parts_list[i].end_loc = leg1.parts_list[i+1].start_loc
 
-            for p in leg1.parts_list:
-                pygame.draw.line(screen, RED, p.start_loc, p.end_loc, 5)
+            for i in range(0, total-1):
+                leg1.update_leg()
+                pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
 
             pygame.display.flip()
-            leg1.update_leg()
             leg1.leg_to_string()
 
             clock.tick(REFRESH_RATE)
