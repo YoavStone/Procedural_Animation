@@ -30,17 +30,22 @@ class leg:
         print()
 
 
-def main():
-    print("how many parts:")
-    parts_amount = int(input())
+def create_leg(num_of_parts):
     part_list = []
-    for i in range(0, parts_amount):
-        print("start loc: ")
-        loc1 = [int(input()), int(input())]
+    print("start loc: ")
+    loc1 = [int(input()), int(input())]
+    for i in range(0, num_of_parts):
         print("end loc: ")
         loc2 = [int(input()), int(input())]
         part_list.append(legPart(loc1, loc2))
+        loc1 = loc2
     leg1 = leg(part_list)
+    return leg1
+
+
+def main():
+    print("how many parts:")
+    leg1 = create_leg(int(input()))
     leg1.leg_to_string()
 
 
