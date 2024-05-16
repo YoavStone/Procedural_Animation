@@ -33,20 +33,17 @@ class leg:
 
 def create_leg(num_of_parts):
     part_list = []
-    print("start loc: ")
-    loc1 = [int(input()), int(input())]
-    for i in range(0, num_of_parts):
-        print("end loc: ")
-        loc2 = [int(input()), int(input())]
-        part_list.append(legPart(loc1, loc2))
-        loc1 = loc2
+    loc = [0, 0]
+    part_list.append(legPart(loc, LEG_PART_LEN))
+    for i in range(1, num_of_parts):
+        part_list.append(legPart(part_list[i-1], LEG_PART_LEN))
     leg1 = leg(part_list)
     return leg1
 
 
 def main():
-    print("how many parts:")
-    leg1 = create_leg(int(input()))
+
+    leg1 = create_leg(NUM_OF_LEG_PARTS)
     leg1.leg_to_string()
 
     pygame.init()
@@ -57,10 +54,26 @@ def main():
     screen.fill(WHITE)
     pygame.display.flip()
     finish = False
-    while not finish:
+
+    clock = pygame.time.Clock()
+    while not finish:  # game loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 finish = True
+
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            screen.fill(WHITE)
+            leg1.parts_list[0].follow(pos)
+            pygame.draw.line(screen, RED, leg1.parts_list[0].start_loc, leg1.parts_list[0].end_loc, 5)
+
+            for i in range(1, len(leg1.parts_list)):
+                leg1.parts_list[i].follow(leg1.parts_list[i-1].start_loc)
+                pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
+
+            pygame.display.flip()
+
+            clock.tick(REFRESH_RATE)
 
     pygame.quit()
 
