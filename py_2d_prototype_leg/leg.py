@@ -47,11 +47,11 @@ class leg:
             p2 = self.parts_list[i].start_loc
             p3 = self.parts_list[i].end_loc
             angle_bet = angle_between_3_points(p1, p2, p3)
-
             if (angle_bet > 180) and not self.is_right:
                 self.parts_list[i].angle = self.parts_list[i-1].angle
             elif (angle_bet < 180) and self.is_right:
                 self.parts_list[i].angle = self.parts_list[i-1].angle
+
             self.parts_list[i].update()
 
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
