@@ -13,12 +13,15 @@ class body:
         self.leg_num = 0
 
     def draw_body(self, screen):
-        pygame.draw.circle(screen, RED, self.body_loc[0], self.body_loc[1], self.body_size)
+        pygame.draw.circle(screen, RED, self.body_loc, self.body_size)
 
     def draw_creature(self, screen):
+        screen.fill(WHITE)
         self.draw_body(screen)
         for leg in self.legs:
             draw_leg(screen, leg)
+            leg.leg_to_string()
+        pygame.display.flip()
 
 
 def create_creature(leg_num, init_loc):
@@ -60,8 +63,7 @@ def main():
                 leg1.leg_follow(pos)
                 leg1.update_leg()
 
-                draw_leg(screen, leg1)
-                leg1.leg_to_string()
+            creature.draw_creature(screen)
 
             clock.tick(REFRESH_RATE)
 

@@ -59,6 +59,3 @@ def create_leg(num_of_parts):
 def draw_leg(screen, leg1):
     for i in range(0, len(leg1.parts_list)):
         pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
-
-    pygame.display.flip()
-    screen.fill(WHITE)
