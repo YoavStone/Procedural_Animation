@@ -31,6 +31,7 @@ class leg:
         print()
 
     def update_leg(self):
+        self.parts_list[0].update()
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
             self.parts_list[i].update()
@@ -80,9 +81,6 @@ def main():
 
             for i in range(total-2, -1, -1):
                 target = leg1.parts_list[i+1].start_loc
-                # if math.dist(target, leg1.parts_list[i+1].start_loc) >= LEG_PART_LEN:
-                #     deg = angle_from_location(leg1.parts_list[i+1].start_loc, target)
-                #     target = angle_to_location(leg1.parts_list[i+1].start_loc, LEG_PART_LEN, deg)
                 leg1.parts_list[i].follow(target)
 
             for i in range(0, total-1):
