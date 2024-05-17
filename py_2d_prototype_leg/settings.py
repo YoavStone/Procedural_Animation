@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 # py game
@@ -35,3 +36,11 @@ def angle_to_location(loc1, length, angle):
     rad = angle*math.pi/180
     loc2 = [loc1[0] + length * math.cos(rad), loc1[1] + length * math.sin(rad)]
     return loc2
+
+
+def angle_between(p_start, p_end):
+    a = p_start[0]
+    b = p_start[1]
+    c = p_end[1]
+    deg = math.degrees(math.atan2(c[1] - b[1], c[0] - b[0]) - math.atan2(a[1] - b[1], a[0] - b[0]))
+    return deg + 360 if deg < 0 else deg

@@ -38,34 +38,21 @@ class leg:
     def update_leg(self):
         self.parts_list[0].update()
         self.parts_list[0].angle = angle_from_location(self.parts_list[0].start_loc, self.parts_list[0].end_loc)
-        print("angle 0: ", self.parts_list[0].angle)
+
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
             self.parts_list[i].angle = angle_from_location(self.parts_list[i].start_loc, self.parts_list[i].end_loc)
-            if (self.parts_list[i-1].angle - self.parts_list[i].angle < 0) and not self.is_right:
-                if not (self.parts_list[i-1].angle < 180 and self.parts_list[i].angle > 180):
-                    print("###############")
-                    print("left")
-                    print("p loc: ", self.parts_list[i - 1].start_loc, " , ", self.parts_list[i - 1].end_loc)
-                    print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
-                    print("angle p: ", self.parts_list[i - 1].angle)
-                    print("angle c: ", self.parts_list[i].angle)
-                    print("###############")
-                    self.parts_list[i].angle = self.parts_list[i-1].angle
-                #elif
-            if (self.parts_list[i-1].angle - self.parts_list[i].angle > 0) and self.is_right:
-                if not (self.parts_list[i-1].angle > 180 and self.parts_list[i].angle < 180):
-                    print("###############")
-                    print("right")
-                    print("p loc: ", self.parts_list[i - 1].start_loc, " , ", self.parts_list[i - 1].end_loc)
-                    print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
-                    print("angle p: ", self.parts_list[i - 1].angle)
-                    print("angle c: ", self.parts_list[i].angle)
-                    print("###############")
-                    self.parts_list[i].angle = self.parts_list[i-1].angle
+
+            v1 = [self.parts_list[i-1].start_loc, self.parts_list[i-1].end_loc]
+            v2 = [self.parts_list[i].start_loc, self.parts_list[i].end_loc]
+            angle_bet = angle_between(v1, v2)
+
+            if (angle_bet > 180) and not self.is_right:
+                self.parts_list[i].angle = self.parts_list[i-1].angle
+            elif (angle_bet < 180) and self.is_right:
+                self.parts_list[i].angle = self.parts_list[i-1].angle
             self.parts_list[i].update()
-            print("angle p: ", self.parts_list[i-1].angle)
-            print("angle c: ", self.parts_list[i].angle)
+
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
         self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
