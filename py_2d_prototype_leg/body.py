@@ -16,7 +16,6 @@ class body:
         self.body_loc = pos
         for leg in self.legs:
             leg.parts_list[0].start_loc = pos
-            leg.update_leg()
 
     def draw_body(self, screen):
         pygame.draw.circle(screen, RED, self.body_loc, self.body_size)
@@ -34,7 +33,10 @@ def create_creature(leg_num, init_loc):
     b = body(init_loc)
     b.leg_num = leg_num
     for i in range(0, leg_num):
-        b.legs.append(create_leg(NUM_OF_LEG_PARTS))
+        is_right = False
+        if i % 2 == 0:
+            is_right = True
+        b.legs.append(create_leg(NUM_OF_LEG_PARTS, is_right))
         b.legs[i].leg_to_string()
     return b
 

@@ -5,8 +5,9 @@ from py_2d_prototype_leg.legPart import *
 
 
 class leg:
-    def __init__(self, parts_list):
+    def __init__(self, parts_list, is_right):
         self.parts_list = parts_list
+        self.is_right = is_right
         len = 0
         self.part_amount = 0
         for p in parts_list:
@@ -22,6 +23,10 @@ class leg:
             print("---")
             part.part_to_string()
         print("------------")
+        if self.is_right:
+            print("leg is right leg")
+        else:
+            print("leg is left leg")
         print("part amount: ", self.part_amount)
         print("max leg len: ", self.max_len)
         print("start leg: ", self.start_leg)
@@ -34,6 +39,11 @@ class leg:
         self.parts_list[0].update()
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
+            self.parts_list[i].angle = angle_from_location(self.parts_list[i].start_loc, self.parts_list[i].end_loc)
+            if self.parts_list[i].angle + self.parts_list[i-1].angle < 0 and not self.is_right:
+                self.parts_list[i].angle = self.parts_list[i-1].angle
+            if self.parts_list[i].angle - self.parts_list[i-1].angle < 0 and self.is_right:
+                self.parts_list[i].angle = self.parts_list[i-1].angle
             self.parts_list[i].update()
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
         self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
@@ -46,13 +56,13 @@ class leg:
             self.parts_list[i].follow(target)
 
 
-def create_leg(num_of_parts):
+def create_leg(num_of_parts, is_right):
     part_list = []
     loc = FIXED_JOINT
     part_list.append(legPart(loc, LEG_PART_LEN, True))
     for i in range(1, num_of_parts):
         part_list.append(legPart(part_list[i-1], LEG_PART_LEN))
-    leg1 = leg(part_list)
+    leg1 = leg(part_list, is_right)
     return leg1
 
 
