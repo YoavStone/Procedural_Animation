@@ -16,6 +16,7 @@ class body:
         self.body_loc = pos
         for leg in self.legs:
             leg.parts_list[0].start_loc = pos
+            leg.update_leg()
 
     def draw_body(self, screen):
         pygame.draw.circle(screen, RED, self.body_loc, self.body_size)

@@ -20,7 +20,7 @@ class legPart:
     def part_to_string(self):
         print("pos: ", self.start_loc, " , ", self.end_loc)
         print("len: ", self.len)
-        print("angle: ", self.angle*-1)
+        print("angle: ", self.angle)
 
     def calc_end_loc(self):
         self.end_loc = angle_to_location(self.start_loc, self.len, self.angle)
