@@ -16,6 +16,9 @@ NUM_OF_LEG_PARTS = 3
 LEG_PART_LEN = MAX_LEG_LEN / NUM_OF_LEG_PARTS
 FIXED_JOINT = [WINDOW_WIDTH/2, WINDOW_HEIGHT/2]
 
+# body
+BODY_SIZE = 10
+
 
 # functions
 def angle_from_location(loc1, loc2):
