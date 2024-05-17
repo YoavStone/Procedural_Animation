@@ -43,9 +43,10 @@ class leg:
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
             self.parts_list[i].angle = angle_from_location(self.parts_list[i].start_loc, self.parts_list[i].end_loc)
 
-            v1 = [self.parts_list[i-1].start_loc, self.parts_list[i-1].end_loc]
-            v2 = [self.parts_list[i].start_loc, self.parts_list[i].end_loc]
-            angle_bet = angle_between(v1, v2)
+            p1 = self.parts_list[i-1].start_loc
+            p2 = self.parts_list[i].start_loc
+            p3 = self.parts_list[i].end_loc
+            angle_bet = angle_between_3_points(p1, p2, p3)
 
             if (angle_bet > 180) and not self.is_right:
                 self.parts_list[i].angle = self.parts_list[i-1].angle
