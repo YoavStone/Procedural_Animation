@@ -40,6 +40,7 @@ class leg:
         print(self.parts_list[0].angle)
         self.parts_list[0].angle = angle_from_location(self.parts_list[0].start_loc, self.parts_list[0].end_loc)
         print(self.parts_list[0].angle)
+        print("################")
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
             print(self.parts_list[i].angle)
@@ -80,4 +81,6 @@ def create_leg(num_of_parts, is_right):
 
 def draw_leg(screen, leg1):
     for i in range(0, len(leg1.parts_list)):
-        pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
+        start_loc = [leg1.parts_list[i].start_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].start_loc[1] + SCREEN_CENTER[1]]
+        end_loc = [leg1.parts_list[i].end_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].end_loc[1] + SCREEN_CENTER[1]]
+        pygame.draw.line(screen, RED, start_loc, end_loc, 5)
