@@ -6,9 +6,18 @@ from py_2d_prototype_leg.leg import *
 
 
 class body:
-    def __init__(self, legs_arr):
+    def __init__(self, legs_arr, init_loc):
         self.body_size = BODY_SIZE
+        self.body_loc = init_loc
         self.legs = legs_arr
+
+    def draw_body(self, screen):
+        pygame.draw.circle(screen, RED, self.body_loc[0], self.body_loc[1], self.body_size)
+
+    def draw_creature(self, screen):
+        self.draw_body(screen)
+        for leg in self.legs:
+            draw_leg(screen, leg)
 
 
 def main():
@@ -41,9 +50,7 @@ def main():
 
             leg1.parts_list[total-1].follow(pos)
 
-            for i in range(total-2, -1, -1):
-                target = leg1.parts_list[i+1].start_loc
-                leg1.parts_list[i].follow(target)
+            leg1.leg_follow()
 
             leg1.update_leg()
 
