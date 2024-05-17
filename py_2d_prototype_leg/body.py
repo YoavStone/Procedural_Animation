@@ -19,7 +19,7 @@ class body:
             leg.update_leg()
 
     def draw_body(self, screen):
-        loc = [self.body_loc[0] + SCREEN_CENTER[0], self.body_loc[1] + SCREEN_CENTER[1]]
+        loc = [self.body_loc[0] + SCREEN_CENTER[0], self.body_loc[1]*-1 + SCREEN_CENTER[1]]
         pygame.draw.circle(screen, RED, loc, self.body_size)
 
     def draw_creature(self, screen):
@@ -69,6 +69,7 @@ def main():
                     pos = list(pos)
                     pos[0] -= SCREEN_CENTER[0]
                     pos[1] -= SCREEN_CENTER[1]
+                    pos[1] *= -1
                     creature.legs[0].leg_follow(pos)
                     creature.legs[0].update_leg()
                 elif pygame.mouse.get_pressed()[2]:  # Right click
@@ -76,6 +77,7 @@ def main():
                     pos = list(pos)
                     pos[0] -= SCREEN_CENTER[0]
                     pos[1] -= SCREEN_CENTER[1]
+                    pos[1] *= -1
                     creature.legs[1].leg_follow(pos)
                     creature.legs[1].update_leg()
                 elif pygame.mouse.get_pressed()[1]:  # middle click
@@ -83,8 +85,8 @@ def main():
                     pos = list(pos)
                     pos[0] -= SCREEN_CENTER[0]
                     pos[1] -= SCREEN_CENTER[1]
+                    pos[1] *= -1
                     creature.change_body_loc(pos)
-                    print("mouse: ", pos)
 
             creature.draw_creature(screen)
 

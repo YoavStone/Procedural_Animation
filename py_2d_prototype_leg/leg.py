@@ -81,6 +81,6 @@ def create_leg(num_of_parts, is_right):
 
 def draw_leg(screen, leg1):
     for i in range(0, len(leg1.parts_list)):
-        start_loc = [leg1.parts_list[i].start_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].start_loc[1] + SCREEN_CENTER[1]]
-        end_loc = [leg1.parts_list[i].end_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].end_loc[1] + SCREEN_CENTER[1]]
+        start_loc = [leg1.parts_list[i].start_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].start_loc[1]*-1 + SCREEN_CENTER[1]]
+        end_loc = [leg1.parts_list[i].end_loc[0] + SCREEN_CENTER[0], leg1.parts_list[i].end_loc[1]*-1 + SCREEN_CENTER[1]]
         pygame.draw.line(screen, RED, start_loc, end_loc, 5)
