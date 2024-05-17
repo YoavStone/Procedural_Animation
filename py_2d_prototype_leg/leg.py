@@ -72,7 +72,10 @@ def main():
             if event.type == pygame.QUIT:
                 finish = True
 
-            # if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                start_pos = pygame.mouse.get_pos()
+                leg1.parts_list[0].start_loc = start_pos
+
             pos = pygame.mouse.get_pos()
             screen.fill(WHITE)
 
