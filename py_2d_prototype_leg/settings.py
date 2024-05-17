@@ -24,7 +24,7 @@ LEG_AMOUNT = 2
 # functions
 def angle_from_location(loc1, loc2):
     rad = math.atan2((loc2[1] - loc1[1]), (loc2[0] - loc1[0]))
-    deg = rad*180/math.pi
+    deg = math.degrees(rad)
     return deg
 
 

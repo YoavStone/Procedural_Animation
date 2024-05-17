@@ -37,12 +37,13 @@ class leg:
 
     def update_leg(self):
         self.parts_list[0].update()
+        self.parts_list[0].angle = angle_from_location(self.parts_list[0].start_loc, self.parts_list[0].end_loc)
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
             self.parts_list[i].angle = angle_from_location(self.parts_list[i].start_loc, self.parts_list[i].end_loc)
-            if self.parts_list[i].angle + self.parts_list[i-1].angle < 0 and not self.is_right:
+            if not(self.parts_list[i].angle - self.parts_list[i-1].angle < 0) and not self.is_right:
                 self.parts_list[i].angle = self.parts_list[i-1].angle
-            if self.parts_list[i].angle - self.parts_list[i-1].angle < 0 and self.is_right:
+            elif self.parts_list[i].angle - self.parts_list[i-1].angle < 0 and self.is_right:
                 self.parts_list[i].angle = self.parts_list[i-1].angle
             self.parts_list[i].update()
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
