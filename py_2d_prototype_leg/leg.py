@@ -82,8 +82,8 @@ def main():
                 target = leg1.parts_list[i+1].start_loc
                 leg1.parts_list[i].follow(target)
 
+            leg1.update_leg()
             for i in range(0, total):
-                leg1.update_leg()
                 pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
 
             pygame.display.flip()

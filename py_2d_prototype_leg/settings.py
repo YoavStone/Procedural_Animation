@@ -12,11 +12,12 @@ BLACK = (0, 0, 0)
 
 # legs
 MAX_LEG_LEN = 300
-NUM_OF_LEG_PARTS = 3
+NUM_OF_LEG_PARTS = 300
 LEG_PART_LEN = MAX_LEG_LEN / NUM_OF_LEG_PARTS
 FIXED_JOINT = [WINDOW_WIDTH/2, WINDOW_HEIGHT/2]
 
 
+# functions
 def angle_from_location(loc1, loc2):
     rad = math.atan2((loc2[1] - loc1[1]), (loc2[0] - loc1[0]))
     deg = rad*180/math.pi
