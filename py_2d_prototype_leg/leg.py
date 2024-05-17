@@ -37,22 +37,22 @@ class leg:
 
     def update_leg(self):
         self.parts_list[0].update()
-        print(self.parts_list[0].angle)
         self.parts_list[0].angle = angle_from_location(self.parts_list[0].start_loc, self.parts_list[0].end_loc)
-        print(self.parts_list[0].angle)
         print("################")
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
-            print(self.parts_list[i].angle)
             self.parts_list[i].angle = angle_from_location(self.parts_list[i].start_loc, self.parts_list[i].end_loc)
-            print(self.parts_list[i].angle)
             if (self.parts_list[i-1].angle - self.parts_list[i].angle < 0) and not self.is_right:
                 print("left")
+                print("p loc: ", self.parts_list[i-1].start_loc, " , ", self.parts_list[i-1].end_loc)
+                print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
                 print("angle p: ", self.parts_list[i-1].angle)
                 print("angle c: ", self.parts_list[i].angle)
                 self.parts_list[i].angle = self.parts_list[i-1].angle
             elif (self.parts_list[i-1].angle - self.parts_list[i].angle > 0) and self.is_right:
                 print("right")
+                print("p loc: ", self.parts_list[i-1].start_loc, " , ", self.parts_list[i-1].end_loc)
+                print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
                 print("angle p: ", self.parts_list[i-1].angle)
                 print("angle c: ", self.parts_list[i].angle)
                 self.parts_list[i].angle = self.parts_list[i-1].angle
