@@ -77,13 +77,12 @@ def main():
             screen.fill(WHITE)
 
             leg1.parts_list[total-1].follow(pos)
-            pygame.draw.line(screen, RED, leg1.parts_list[total-1].start_loc, leg1.parts_list[total-1].end_loc, 5)
 
             for i in range(total-2, -1, -1):
                 target = leg1.parts_list[i+1].start_loc
                 leg1.parts_list[i].follow(target)
 
-            for i in range(0, total-1):
+            for i in range(0, total):
                 leg1.update_leg()
                 pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
 
