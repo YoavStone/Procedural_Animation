@@ -48,14 +48,10 @@ def main():
 
             pos = pygame.mouse.get_pos()
 
-            leg1.parts_list[total-1].follow(pos)
-
-            leg1.leg_follow()
-
+            leg1.leg_follow(pos)
             leg1.update_leg()
 
             draw_leg(screen, leg1)
-
             leg1.leg_to_string()
 
             clock.tick(REFRESH_RATE)

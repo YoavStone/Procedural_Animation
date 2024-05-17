@@ -39,8 +39,9 @@ class leg:
         self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
 
-    def leg_follow(self):
-        for i in range(len(self.parts_list) - 2, -1, -1):
+    def leg_follow(self, pos):
+        self.parts_list[len(self.parts_list)-1].follow(pos)
+        for i in range(len(self.parts_list)-2, -1, -1):
             target = self.parts_list[i + 1].start_loc
             self.parts_list[i].follow(target)
 
