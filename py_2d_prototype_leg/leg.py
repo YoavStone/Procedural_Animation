@@ -56,7 +56,7 @@ class leg:
                 print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
                 print("angle p: ", self.parts_list[i-1].angle)
                 print("angle c: ", self.parts_list[i].angle)
-                if not (self.parts_list[i].angle < 180 and self.parts_list[i-1].angle > 180):
+                if not(self.parts_list[i].angle < 180 and self.parts_list[i-1].angle > 180):
                     self.parts_list[i].angle = self.parts_list[i-1].angle
             self.parts_list[i].update()
             print("###############")
