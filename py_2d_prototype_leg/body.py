@@ -53,15 +53,15 @@ def main():
             if event.type == pygame.QUIT:
                 finish = True
 
-            for leg1 in creature.legs:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    start_pos = pygame.mouse.get_pos()
-                    leg1.parts_list[0].start_loc = start_pos
-
-                pos = pygame.mouse.get_pos()
-
-                leg1.leg_follow(pos)
-                leg1.update_leg()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed()[0]:  # Left click
+                    pos = pygame.mouse.get_pos()
+                    creature.legs[0].leg_follow(pos)
+                    creature.legs[0].update_leg()
+                elif pygame.mouse.get_pressed()[2]:  # Right click
+                    pos = pygame.mouse.get_pos()
+                    creature.legs[1].leg_follow(pos)
+                    creature.legs[1].update_leg()
 
             creature.draw_creature(screen)
 
