@@ -11,6 +11,8 @@ class body:
         self.body_loc = init_loc
         self.legs = []
         self.leg_num = 0
+        self.acceleration = [0, 0]  # pixels per sec^2 in direction
+        self.speed = [0, 0]  # pixels per sec in direction
 
     def change_body_loc(self, pos):
         self.body_loc = pos
