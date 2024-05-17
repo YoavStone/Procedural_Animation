@@ -12,6 +12,12 @@ class body:
         self.legs = []
         self.leg_num = 0
 
+    def change_body_loc(self, pos):
+        self.body_loc = pos
+        for leg in self.legs:
+            leg.parts_list[0].start_loc = pos
+            leg.update_leg()
+
     def draw_body(self, screen):
         pygame.draw.circle(screen, RED, self.body_loc, self.body_size)
 
@@ -62,6 +68,9 @@ def main():
                     pos = pygame.mouse.get_pos()
                     creature.legs[1].leg_follow(pos)
                     creature.legs[1].update_leg()
+                elif pygame.mouse.get_pressed()[1]:  # middle click
+                    pos = pygame.mouse.get_pos()
+                    creature.change_body_loc(pos)
 
             creature.draw_creature(screen)
 
