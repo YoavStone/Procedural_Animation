@@ -26,7 +26,7 @@ class body:
         self.draw_body(screen)
         for leg in self.legs:
             draw_leg(screen, leg)
-            leg.leg_to_string()
+            # leg.leg_to_string()
         pygame.display.flip()
 
 
