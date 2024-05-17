@@ -48,14 +48,16 @@ class leg:
                 print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
                 print("angle p: ", self.parts_list[i-1].angle)
                 print("angle c: ", self.parts_list[i].angle)
-                self.parts_list[i].angle = self.parts_list[i-1].angle
+                if not(self.parts_list[i-1].angle < 180 and self.parts_list[i].angle > 180):
+                    self.parts_list[i].angle = self.parts_list[i-1].angle
             elif (self.parts_list[i-1].angle - self.parts_list[i].angle > 0) and self.is_right:
                 print("right")
                 print("p loc: ", self.parts_list[i-1].start_loc, " , ", self.parts_list[i-1].end_loc)
                 print("c loc: ", self.parts_list[i].start_loc, " , ", self.parts_list[i].end_loc)
                 print("angle p: ", self.parts_list[i-1].angle)
                 print("angle c: ", self.parts_list[i].angle)
-                self.parts_list[i].angle = self.parts_list[i-1].angle
+                if not (self.parts_list[i].angle < 180 and self.parts_list[i-1].angle > 180):
+                    self.parts_list[i].angle = self.parts_list[i-1].angle
             self.parts_list[i].update()
             print("###############")
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
