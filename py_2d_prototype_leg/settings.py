@@ -18,6 +18,7 @@ FIXED_JOINT = [WINDOW_WIDTH/2, WINDOW_HEIGHT/2]
 
 # body
 BODY_SIZE = 10
+LEG_AMOUNT = 1
 
 
 # functions

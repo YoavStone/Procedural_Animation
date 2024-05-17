@@ -6,10 +6,11 @@ from py_2d_prototype_leg.leg import *
 
 
 class body:
-    def __init__(self, legs_arr, init_loc):
+    def __init__(self, init_loc):
         self.body_size = BODY_SIZE
         self.body_loc = init_loc
-        self.legs = legs_arr
+        self.legs = []
+        self.leg_num = 0
 
     def draw_body(self, screen):
         pygame.draw.circle(screen, RED, self.body_loc[0], self.body_loc[1], self.body_size)
@@ -20,11 +21,18 @@ class body:
             draw_leg(screen, leg)
 
 
+def create_creature(leg_num, init_loc):
+    b = body(init_loc)
+    b.leg_num = leg_num
+    for i in range(0, leg_num):
+        b.legs.append(create_leg(NUM_OF_LEG_PARTS))
+        b.legs[i].leg_to_string()
+    return b
+
+
 def main():
 
-    leg1 = create_leg(NUM_OF_LEG_PARTS)
-    leg1.leg_to_string()
-    total = len(leg1.parts_list)
+    creature = create_creature(LEG_AMOUNT, FIXED_JOINT)
 
     pygame.init()
 
@@ -42,17 +50,18 @@ def main():
             if event.type == pygame.QUIT:
                 finish = True
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                start_pos = pygame.mouse.get_pos()
-                leg1.parts_list[0].start_loc = start_pos
+            for leg1 in creature.legs:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    start_pos = pygame.mouse.get_pos()
+                    leg1.parts_list[0].start_loc = start_pos
 
-            pos = pygame.mouse.get_pos()
+                pos = pygame.mouse.get_pos()
 
-            leg1.leg_follow(pos)
-            leg1.update_leg()
+                leg1.leg_follow(pos)
+                leg1.update_leg()
 
-            draw_leg(screen, leg1)
-            leg1.leg_to_string()
+                draw_leg(screen, leg1)
+                leg1.leg_to_string()
 
             clock.tick(REFRESH_RATE)
 
