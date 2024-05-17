@@ -50,6 +50,14 @@ def create_leg(num_of_parts):
     return leg1
 
 
+def draw(screen, leg1):
+    for i in range(0, len(leg1.parts_list)):
+        pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
+
+    pygame.display.flip()
+    screen.fill(WHITE)
+
+
 def main():
 
     leg1 = create_leg(NUM_OF_LEG_PARTS)
@@ -77,7 +85,6 @@ def main():
                 leg1.parts_list[0].start_loc = start_pos
 
             pos = pygame.mouse.get_pos()
-            screen.fill(WHITE)
 
             leg1.parts_list[total-1].follow(pos)
 
@@ -86,10 +93,9 @@ def main():
                 leg1.parts_list[i].follow(target)
 
             leg1.update_leg()
-            for i in range(0, total):
-                pygame.draw.line(screen, RED, leg1.parts_list[i].start_loc, leg1.parts_list[i].end_loc, 5)
 
-            pygame.display.flip()
+            draw(screen, leg1)
+
             leg1.leg_to_string()
 
             clock.tick(REFRESH_RATE)
