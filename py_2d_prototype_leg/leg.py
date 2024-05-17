@@ -33,6 +33,7 @@ class leg:
     def update_leg(self):
         for i in range(1, len(self.parts_list)):
             self.parts_list[i].start_loc = self.parts_list[i-1].end_loc
+            self.parts_list[i].update()
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
         self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
