@@ -15,7 +15,7 @@ class leg:
             self.part_amount += 1
         self.max_len = len
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
-        self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
+        self.paw = self.parts_list[self.part_amount-1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
 
     def leg_to_string(self):
@@ -55,7 +55,7 @@ class leg:
             self.parts_list[i].update()
 
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
-        self.paw = self.parts_list[self.part_amount - 1].end_loc  # problem if no parts
+        self.paw = self.parts_list[self.part_amount-1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
 
     def leg_follow(self, pos):

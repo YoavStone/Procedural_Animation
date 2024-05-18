@@ -38,6 +38,9 @@ class body:
                 self.acc_x = -FRICTION
             elif self.speed_x < 0:
                 self.acc_x = FRICTION
+            else:
+                self.speed_x = 0
+                self.acc_x = 0
 
             # self.acc_y = GRAVITY # TODO add gravity
 
