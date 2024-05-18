@@ -21,8 +21,12 @@ FIXED_JOINT = [0, 0]
 # body
 BODY_SIZE = 10
 LEG_AMOUNT = 2
-MAX_ACC = np.array([1, 1])
-MAX_SPEED = np.array([3, 3])
+MAX_ACC_X = 1.5
+FRICTION = 0.125
+MAX_SPEED_X = 6
+MAX_SPEED_Y = -15
+
+GRAVITY = -0.25
 
 
 # functions

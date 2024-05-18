@@ -9,60 +9,53 @@ from py_2d_prototype_leg.leg import *
 class body:
     def __init__(self, init_loc):
         self.body_size = BODY_SIZE
-        self.body_loc = np.array(init_loc)
+        self.body_loc = init_loc
         self.legs = []
         self.leg_num = 0
-        self.acceleration = np.array([0, 0])  # pixels per sec^2 in direction
-        self.speed = np.array([0, 0])  # pixels per sec in direction
+        self.acc_x = 0  # pixels per sec^2 in direction
+        self.acc_y = 0
+        self.speed_x = 0  # pixels per sec in direction
+        self.speed_y = 0
 
     def update_body_movement(self):
-        # if self.acceleration[0] > MAX_ACC[0]:
-        #     self.acceleration[0] = MAX_ACC[0]
-        # elif self.acceleration[0] < -MAX_ACC[0]:
-        #     self.acceleration[0] = -MAX_ACC[0]
-        # if self.acceleration[1] > MAX_ACC[1]:
-        #     self.acceleration[1] = MAX_ACC[1]
-        # elif self.acceleration[1] < -MAX_ACC[1]:
-        #     self.acceleration[1] = -MAX_ACC[1]
 
-        self.speed = self.speed + self.acceleration
+        self.speed_x += self.acc_x
+        self.speed_y += self.acc_y
 
-        # if self.speed[0] > MAX_SPEED[0]:
-        #     self.speed[0] = MAX_SPEED[0]
-        # elif self.speed[0] < -MAX_SPEED[0]:
-        #     self.speed[0] = -MAX_SPEED[0]
-        # if self.speed[1] > MAX_SPEED[1]:
-        #     self.speed[1] = MAX_SPEED[1]
-        # elif self.speed[1] < -MAX_SPEED[1]:
-        #     self.speed[1] = -MAX_SPEED[1]
+        if self.speed_x > MAX_SPEED_X:
+            self.speed_x = MAX_SPEED_X
+        elif self.speed_x < -MAX_SPEED_X:
+            self.speed_x = -MAX_SPEED_X
+        if self.speed_y < MAX_SPEED_Y:
+            self.speed_y = MAX_SPEED_Y
 
-        self.body_loc = self.body_loc + self.speed
+        self.body_loc[0] += self.speed_x
+        self.body_loc[1] += self.speed_y
 
     def update_body_loc(self, inp=""):
-        # if inp == "":
-        #     if self.speed[0] > 0:
-        #         self.acceleration[0] -= 0.125
-        #     elif self.speed[0] < 0:
-        #         self.acceleration[0] += 0.125
-        #     if self.speed[1] > 0:
-        #         self.acceleration[1] -= 0.125
-        #     elif self.speed[1] < 0:
-        #         self.acceleration[1] += 0.125
-        if inp == "up":
-            print("inp: ", inp)
-            self.acceleration = self.acceleration + np.array([0, 0.25])
+        if inp == "":
+            if self.speed_x > 0:
+                self.acc_x = -FRICTION
+            elif self.speed_x < 0:
+                self.acc_x = FRICTION
+
+            # self.acc_y = GRAVITY # TODO add gravity
+
+        # if inp == "up":
+        #     print("inp: ", inp)
+        #     self.acc_y = 10
         elif inp == "left":
             print("inp: ", inp)
-            self.acceleration = self.acceleration - np.array([0.25, 0])
-        elif inp == "down":
-            print("inp: ", inp)
-            self.acceleration = self.acceleration - np.array([0, 0.25])
+            self.acc_x = -MAX_ACC_X
+        # elif inp == "down":
+        #     print("inp: ", inp)
+        #     self.acceleration = self.acceleration - np.array([0, 0.25])
         elif inp == "right":
             print("inp: ", inp)
-            self.acceleration = self.acceleration + np.array([0.25, 0])
+            self.acc_x = MAX_ACC_X
         self.update_body_movement()
-        print("speed: ", self.speed)
-        print("acc: ", self.acceleration)
+        print("speed: ", self.speed_x, " , ", self.speed_y)
+        print("acc: ", self.acc_x, " , ", self.acc_y)
         for leg in self.legs:
             leg.parts_list[0].start_loc = self.body_loc
             leg.update_leg()
@@ -129,15 +122,16 @@ def main():
                     pos[1] *= -1
                     creature.legs[1].leg_follow(pos)
                     creature.legs[1].update_leg()
-            if event.type == pygame.KEYDOWN:  # W A S D
-                if event.key == pygame.K_w:  # pressed w
-                    creature.update_body_loc("up")
-                elif event.key == pygame.K_a:  # pressed a
-                    creature.update_body_loc("left")
-                elif event.key == pygame.K_s:  # pressed s
-                    creature.update_body_loc("down")
-                elif event.key == pygame.K_d:  # pressed d
-                    creature.update_body_loc("right")
+
+            keys = pygame.key.get_pressed()  # W A S D
+            if keys[pygame.K_w]:  # pressed w
+                creature.update_body_loc("up")
+            elif keys[pygame.K_a]:  # pressed a
+                creature.update_body_loc("left")
+            elif keys[pygame.K_s]:  # pressed s
+                creature.update_body_loc("down")
+            elif keys[pygame.K_d]:  # pressed d
+                creature.update_body_loc("right")
 
         creature.update_body_loc()
 
