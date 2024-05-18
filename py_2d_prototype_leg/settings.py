@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 # py game
@@ -20,6 +21,8 @@ FIXED_JOINT = [0, 0]
 # body
 BODY_SIZE = 10
 LEG_AMOUNT = 2
+MAX_ACC = np.array([1, 1])
+MAX_SPEED = np.array([3, 3])
 
 
 # functions

@@ -1,5 +1,6 @@
 import math
 import pygame
+import numpy as np
 from py_2d_prototype_leg.settings import *
 from py_2d_prototype_leg.legPart import *
 from py_2d_prototype_leg.leg import *
@@ -8,16 +9,62 @@ from py_2d_prototype_leg.leg import *
 class body:
     def __init__(self, init_loc):
         self.body_size = BODY_SIZE
-        self.body_loc = init_loc
+        self.body_loc = np.array(init_loc)
         self.legs = []
         self.leg_num = 0
-        self.acceleration = [0, 0]  # pixels per sec^2 in direction
-        self.speed = [0, 0]  # pixels per sec in direction
+        self.acceleration = np.array([0, 0])  # pixels per sec^2 in direction
+        self.speed = np.array([0, 0])  # pixels per sec in direction
 
-    def change_body_loc(self, pos):
-        self.body_loc = pos
+    def update_body_movement(self):
+        # if self.acceleration[0] > MAX_ACC[0]:
+        #     self.acceleration[0] = MAX_ACC[0]
+        # elif self.acceleration[0] < -MAX_ACC[0]:
+        #     self.acceleration[0] = -MAX_ACC[0]
+        # if self.acceleration[1] > MAX_ACC[1]:
+        #     self.acceleration[1] = MAX_ACC[1]
+        # elif self.acceleration[1] < -MAX_ACC[1]:
+        #     self.acceleration[1] = -MAX_ACC[1]
+
+        self.speed = self.speed + self.acceleration
+
+        # if self.speed[0] > MAX_SPEED[0]:
+        #     self.speed[0] = MAX_SPEED[0]
+        # elif self.speed[0] < -MAX_SPEED[0]:
+        #     self.speed[0] = -MAX_SPEED[0]
+        # if self.speed[1] > MAX_SPEED[1]:
+        #     self.speed[1] = MAX_SPEED[1]
+        # elif self.speed[1] < -MAX_SPEED[1]:
+        #     self.speed[1] = -MAX_SPEED[1]
+
+        self.body_loc = self.body_loc + self.speed
+
+    def update_body_loc(self, inp=""):
+        # if inp == "":
+        #     if self.speed[0] > 0:
+        #         self.acceleration[0] -= 0.125
+        #     elif self.speed[0] < 0:
+        #         self.acceleration[0] += 0.125
+        #     if self.speed[1] > 0:
+        #         self.acceleration[1] -= 0.125
+        #     elif self.speed[1] < 0:
+        #         self.acceleration[1] += 0.125
+        if inp == "up":
+            print("inp: ", inp)
+            self.acceleration = self.acceleration + np.array([0, 0.25])
+        elif inp == "left":
+            print("inp: ", inp)
+            self.acceleration = self.acceleration - np.array([0.25, 0])
+        elif inp == "down":
+            print("inp: ", inp)
+            self.acceleration = self.acceleration - np.array([0, 0.25])
+        elif inp == "right":
+            print("inp: ", inp)
+            self.acceleration = self.acceleration + np.array([0.25, 0])
+        self.update_body_movement()
+        print("speed: ", self.speed)
+        print("acc: ", self.acceleration)
         for leg in self.legs:
-            leg.parts_list[0].start_loc = pos
+            leg.parts_list[0].start_loc = self.body_loc
             leg.update_leg()
 
     def draw_body(self, screen):
@@ -82,17 +129,21 @@ def main():
                     pos[1] *= -1
                     creature.legs[1].leg_follow(pos)
                     creature.legs[1].update_leg()
-                elif pygame.mouse.get_pressed()[1]:  # middle click
-                    pos = pygame.mouse.get_pos()
-                    pos = list(pos)
-                    pos[0] -= SCREEN_CENTER[0]
-                    pos[1] -= SCREEN_CENTER[1]
-                    pos[1] *= -1
-                    creature.change_body_loc(pos)
+            if event.type == pygame.KEYDOWN:  # W A S D
+                if event.key == pygame.K_w:  # pressed w
+                    creature.update_body_loc("up")
+                elif event.key == pygame.K_a:  # pressed a
+                    creature.update_body_loc("left")
+                elif event.key == pygame.K_s:  # pressed s
+                    creature.update_body_loc("down")
+                elif event.key == pygame.K_d:  # pressed d
+                    creature.update_body_loc("right")
 
-            creature.draw_creature(screen)
+        creature.update_body_loc()
 
-            clock.tick(REFRESH_RATE)
+        creature.draw_creature(screen)
+
+        clock.tick(REFRESH_RATE)
 
     pygame.quit()
 
