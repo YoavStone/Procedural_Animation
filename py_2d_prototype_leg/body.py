@@ -45,20 +45,15 @@ class body:
             # self.acc_y = GRAVITY # TODO add gravity
 
         # if inp == "up":
-        #     print("inp: ", inp)
         #     self.acc_y = 10
         elif inp == "left":
-            print("inp: ", inp)
             self.acc_x = -MAX_ACC_X
         # elif inp == "down":
-        #     print("inp: ", inp)
         #     self.acceleration = self.acceleration - np.array([0, 0.25])
         elif inp == "right":
-            print("inp: ", inp)
             self.acc_x = MAX_ACC_X
         self.update_body_movement()
-        print("speed: ", self.speed_x, " , ", self.speed_y)
-        print("acc: ", self.acc_x, " , ", self.acc_y)
+
         for leg in self.legs:
             leg.parts_list[0].start_loc = self.body_loc
             leg.update_leg()
@@ -116,6 +111,12 @@ def main():
                 pos[1] *= -1
                 creature.legs[0].leg_follow(pos)
                 creature.legs[0].update_leg()
+                if creature.legs[0].paw != pos:
+                    opp_pos = rotate(creature.body_loc, creature.legs[0].paw, 180-1)
+                    creature.legs[0].leg_follow(opp_pos)
+                    creature.legs[0].update_leg()
+                    creature.legs[0].leg_follow(pos)
+                    creature.legs[0].update_leg()
             elif pygame.mouse.get_pressed()[2]:  # Right click
                 pos = pygame.mouse.get_pos()
                 pos = list(pos)
@@ -124,10 +125,26 @@ def main():
                 pos[1] *= -1
                 creature.legs[1].leg_follow(pos)
                 creature.legs[1].update_leg()
+                if creature.legs[0].paw != pos:
+                    opp_pos = rotate(creature.body_loc, creature.legs[1].paw, 180+1)
+                    creature.legs[1].leg_follow(opp_pos)
+                    creature.legs[1].update_leg()
+                    creature.legs[1].leg_follow(pos)
+                    creature.legs[1].update_leg()
 
             for i in range(0, LEG_AMOUNT):  # fixed on last point that the leg stood on
-                creature.legs[i].leg_follow(creature.legs[i].paw_stand_pos)
+                pos = creature.legs[i].paw_stand_pos
+                creature.legs[i].leg_follow(pos)
                 creature.legs[i].update_leg()
+                if creature.legs[i].paw != pos:
+                    if creature.legs[i].is_right:
+                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180+1)
+                    else:
+                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180-1)
+                    creature.legs[i].leg_follow(opp_pos)
+                    creature.legs[i].update_leg()
+                    creature.legs[i].leg_follow(pos)
+                    creature.legs[i].update_leg()
 
             keys = pygame.key.get_pressed()  # W A S D
             if keys[pygame.K_w]:  # pressed w

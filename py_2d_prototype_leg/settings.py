@@ -47,3 +47,14 @@ def angle_to_location(loc1, length, angle):
 def angle_between_3_points(a, b, c):
     deg = math.degrees(math.atan2(c[1] - b[1], c[0] - b[0]) - math.atan2(a[1] - b[1], a[0] - b[0]))
     return deg + 360 if deg < 0 else deg
+
+
+def rotate(center, move, theta):  # rotate x,y around xo,yo by theta (rad)
+    xo = center[0]
+    yo = center[1]
+    x = move[0]
+    y = move[1]
+    theta = theta * math.pi / 180
+    xr = math.cos(theta)*(x-xo)-math.sin(theta)*(y-yo) + xo
+    yr = math.sin(theta)*(x-xo)+math.cos(theta)*(y-yo) + yo
+    return [xr, yr]
