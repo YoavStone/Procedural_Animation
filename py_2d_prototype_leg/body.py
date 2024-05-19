@@ -58,6 +58,11 @@ class body:
             leg.parts_list[0].start_loc = self.body_loc
             leg.update_leg()
 
+        # avg_height = 0  # TODO add after walk
+        # for leg in self.legs:
+        #     avg_height += leg.paw[1]
+        # self.body_loc[1] = avg_height/self.leg_num + 100
+
     def draw_body(self, screen):
         loc = [self.body_loc[0] + SCREEN_CENTER[0], self.body_loc[1]*-1 + SCREEN_CENTER[1]]
         pygame.draw.circle(screen, RED, loc, self.body_size)

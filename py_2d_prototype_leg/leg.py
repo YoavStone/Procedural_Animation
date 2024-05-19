@@ -66,6 +66,9 @@ class leg:
             self.parts_list[i].follow(target)
         self.paw_stand_pos = pos  # fix on last standing point
 
+    def find_step(self):
+        pass
+
 
 def create_leg(body_loc, num_of_parts, is_right):
     part_list = []
