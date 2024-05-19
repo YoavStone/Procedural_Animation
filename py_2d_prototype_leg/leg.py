@@ -17,6 +17,7 @@ class leg:
         self.start_leg = self.parts_list[0].start_loc  # problem if no parts
         self.paw = self.parts_list[self.part_amount-1].end_loc  # problem if no parts
         self.start_to_end_len = math.dist(self.start_leg, self.paw)
+        self.paw_stand_pos = self.paw
 
     def leg_to_string(self):
         for part in self.parts_list:
@@ -63,6 +64,7 @@ class leg:
         for i in range(len(self.parts_list)-2, -1, -1):
             target = self.parts_list[i + 1].start_loc
             self.parts_list[i].follow(target)
+        self.paw_stand_pos = pos  # fix on last standing point
 
 
 def create_leg(num_of_parts, is_right):

@@ -108,23 +108,26 @@ def main():
             if event.type == pygame.QUIT:
                 finish = True
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.mouse.get_pressed()[0]:  # Left click
-                    pos = pygame.mouse.get_pos()
-                    pos = list(pos)
-                    pos[0] -= SCREEN_CENTER[0]
-                    pos[1] -= SCREEN_CENTER[1]
-                    pos[1] *= -1
-                    creature.legs[0].leg_follow(pos)
-                    creature.legs[0].update_leg()
-                elif pygame.mouse.get_pressed()[2]:  # Right click
-                    pos = pygame.mouse.get_pos()
-                    pos = list(pos)
-                    pos[0] -= SCREEN_CENTER[0]
-                    pos[1] -= SCREEN_CENTER[1]
-                    pos[1] *= -1
-                    creature.legs[1].leg_follow(pos)
-                    creature.legs[1].update_leg()
+            if pygame.mouse.get_pressed()[0]:  # Left click
+                pos = pygame.mouse.get_pos()
+                pos = list(pos)
+                pos[0] -= SCREEN_CENTER[0]
+                pos[1] -= SCREEN_CENTER[1]
+                pos[1] *= -1
+                creature.legs[0].leg_follow(pos)
+                creature.legs[0].update_leg()
+            elif pygame.mouse.get_pressed()[2]:  # Right click
+                pos = pygame.mouse.get_pos()
+                pos = list(pos)
+                pos[0] -= SCREEN_CENTER[0]
+                pos[1] -= SCREEN_CENTER[1]
+                pos[1] *= -1
+                creature.legs[1].leg_follow(pos)
+                creature.legs[1].update_leg()
+
+            for i in range(0, LEG_AMOUNT):  # fixed on last point that the leg stood on
+                creature.legs[i].leg_follow(creature.legs[i].paw_stand_pos)
+                creature.legs[i].update_leg()
 
             keys = pygame.key.get_pressed()  # W A S D
             if keys[pygame.K_w]:  # pressed w
