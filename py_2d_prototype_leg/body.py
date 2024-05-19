@@ -83,7 +83,7 @@ def create_creature(leg_num, init_loc):
         is_right = False
         if i % 2 == 0:
             is_right = True
-        b.legs.append(create_leg(NUM_OF_LEG_PARTS, is_right))
+        b.legs.append(create_leg(init_loc, NUM_OF_LEG_PARTS, is_right))
         b.legs[i].leg_to_string()
     return b
 

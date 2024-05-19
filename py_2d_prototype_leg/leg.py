@@ -67,13 +67,35 @@ class leg:
         self.paw_stand_pos = pos  # fix on last standing point
 
 
-def create_leg(num_of_parts, is_right):
+def create_leg(body_loc, num_of_parts, is_right):
     part_list = []
-    loc = FIXED_JOINT
+    loc = body_loc
     part_list.append(legPart(loc, LEG_PART_LEN, True))
     for i in range(1, num_of_parts):
         part_list.append(legPart(part_list[i-1], LEG_PART_LEN))
     leg1 = leg(part_list, is_right)
+    if not is_right:
+        paw_loc = body_loc.copy()
+        paw_loc[0] += 300
+        paw_loc[1] += 300
+        leg1.leg_follow(paw_loc)
+        leg1.update_leg()
+        paw_loc = body_loc.copy()
+        paw_loc[0] += 100
+        paw_loc[1] -= 100
+        leg1.leg_follow(paw_loc)
+        leg1.update_leg()
+    else:
+        paw_loc = body_loc.copy()
+        paw_loc[0] -= 300
+        paw_loc[1] += 300
+        leg1.leg_follow(paw_loc)
+        leg1.update_leg()
+        paw_loc = body_loc.copy()
+        paw_loc[0] -= 100
+        paw_loc[1] -= 100
+        leg1.leg_follow(paw_loc)
+        leg1.update_leg()
     return leg1
 
 
