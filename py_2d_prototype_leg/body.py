@@ -136,7 +136,7 @@ def main():
                 pos = creature.legs[i].paw_stand_pos
                 creature.legs[i].leg_follow(pos)
                 creature.legs[i].update_leg()
-                while creature.legs[i].paw == pos:
+                if creature.legs[i].paw != pos:
                     if creature.legs[i].is_right:
                         opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180+10)
                     else:
