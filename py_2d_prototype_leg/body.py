@@ -112,7 +112,7 @@ def main():
                 creature.legs[0].leg_follow(pos)
                 creature.legs[0].update_leg()
                 if creature.legs[0].paw != pos:
-                    opp_pos = rotate(creature.body_loc, creature.legs[0].paw, 180-1)
+                    opp_pos = rotate(creature.body_loc, creature.legs[0].paw, 180-10)
                     creature.legs[0].leg_follow(opp_pos)
                     creature.legs[0].update_leg()
                     creature.legs[0].leg_follow(pos)
@@ -125,8 +125,8 @@ def main():
                 pos[1] *= -1
                 creature.legs[1].leg_follow(pos)
                 creature.legs[1].update_leg()
-                if creature.legs[0].paw != pos:
-                    opp_pos = rotate(creature.body_loc, creature.legs[1].paw, 180+1)
+                if creature.legs[1].paw != pos:
+                    opp_pos = rotate(creature.body_loc, creature.legs[1].paw, 180+10)
                     creature.legs[1].leg_follow(opp_pos)
                     creature.legs[1].update_leg()
                     creature.legs[1].leg_follow(pos)
@@ -136,11 +136,11 @@ def main():
                 pos = creature.legs[i].paw_stand_pos
                 creature.legs[i].leg_follow(pos)
                 creature.legs[i].update_leg()
-                if creature.legs[i].paw != pos:
+                while creature.legs[i].paw == pos:
                     if creature.legs[i].is_right:
-                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180+1)
+                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180+10)
                     else:
-                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180-1)
+                        opp_pos = rotate(creature.body_loc, creature.legs[i].paw, 180-10)
                     creature.legs[i].leg_follow(opp_pos)
                     creature.legs[i].update_leg()
                     creature.legs[i].leg_follow(pos)
