@@ -58,14 +58,14 @@ class body:
             leg.parts_list[0].start_loc = self.body_loc
             leg.update_leg()
 
-        avg_height = 0  # TODO add after walk
-        for leg in self.legs:
-            avg_height = avg_height + leg.paw_stand_pos[1]
-            if leg.paw_stand_pos[1] <= self.body_loc[1] + 40:  # TODO do something smarter in case of a leg being above the head (transition especially)
-                avg_height += 100
-            else:
-                avg_height -= 100
-        self.body_loc[1] = avg_height/self.leg_num
+        # avg_height = 0  # TODO add after walk
+        # for leg in self.legs:
+        #     avg_height = avg_height + leg.paw_stand_pos[1]
+        #     if leg.paw_stand_pos[1] <= self.body_loc[1] + 40:  # TODO do something smarter in case of a leg being above the head (transition especially)
+        #         avg_height += 100
+        #     else:
+        #         avg_height -= 100
+        # self.body_loc[1] = avg_height/self.leg_num
 
     def draw_body(self, screen):
         loc = [self.body_loc[0] + SCREEN_CENTER[0], self.body_loc[1]*-1 + SCREEN_CENTER[1]]
