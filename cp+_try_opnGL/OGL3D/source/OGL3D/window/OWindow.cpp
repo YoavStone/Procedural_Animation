@@ -1,4 +1,4 @@
-#include <../../../include/OGL3D/window/OWindow.h>
+#include "../../../include/OGL3D/window/OWindow.h"
 #include <Windows.h>
 #include <assert.h>
 

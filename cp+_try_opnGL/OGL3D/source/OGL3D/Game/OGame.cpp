@@ -1,5 +1,5 @@
-#include <../../../include/OGL3D/Game/OGame.h>
-#include <../../../include/OGL3D/window/OWindow.h>
+#include "../../../include/OGL3D/Game/OGame.h"
+#include "../../../include/OGL3D/window/OWindow.h"
 #include <Windows.h>
 
 
@@ -7,11 +7,11 @@ OGame::OGame() {
     m_display = new OWindow();
 }
 
-OGame::OGame() {
+OGame::~OGame() {
     delete m_display;
 }
 
-void quit(){
+void OGame::quit(){
     m_isRunning = false;
 }
 
