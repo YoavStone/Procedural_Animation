@@ -19,9 +19,9 @@ void OGame::run() {
 
     MSG msg;
     while(m_isRunning){
-        if(PeekMessage($msg, NULL, NULL, NULL, PM_REMOVE)){
-            TranslateMessage(&masg);
-            DispatchMessage(&masg);
+        if(PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE)){
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
         }
         Sleep(1);
     }
