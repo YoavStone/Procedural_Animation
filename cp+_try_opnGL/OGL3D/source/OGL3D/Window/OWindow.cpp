@@ -1,4 +1,4 @@
-#include "../../../include/OGL3D/window/OWindow.h"
+#include "../../../include/OGL3D/Window/OWindow.h"
 #include <Windows.h>
 #include <assert.h>
 #include <iostream>
@@ -30,7 +30,7 @@ OWindow::OWindow() {
     RECT rc = {0, 0, 1024, 768};
     AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false);
 
-    m_handle = CreateWindowEx(NULL, "OGL3DWindow", "Creator window | 3D openGL", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+    m_handle = CreateWindowEx(NULL, "OGL3DWindow", "Creator Window | 3D openGL", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
                    CW_USEDEFAULT, CW_USEDEFAULT, rc.right-rc.left, rc.bottom-rc.top, NULL, NULL, NULL, NULL);
 
     assert(m_handle);

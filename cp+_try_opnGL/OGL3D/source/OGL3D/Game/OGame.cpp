@@ -1,5 +1,5 @@
 #include "../../../include/OGL3D/Game/OGame.h"
-#include "../../../include/OGL3D/window/OWindow.h"
+#include "../../../include/OGL3D/Window/OWindow.h"
 #include <Windows.h>
 #include <iostream>
 
