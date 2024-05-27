@@ -2,8 +2,14 @@
 #include <iostream>
 
 int main(){
-    OGame game;
-    game.run();
+    try {
+        OGame game;
+        game.run();
+    }
+    catch(const std::exception& e){
+        std::cout << "EXCEPTION AT MAIN: " << e.what() << "\n";
+        return 1;
+    }
 
     return 0;
 }
