@@ -8,7 +8,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
     switch(msg){
         case WM_DESTROY:{
             OWindow* window = (OWindow* )GetWindowLongPtr(hwnd, GWLP_USERDATA);
-            window->onDestroy();
+            break;
+        }
+
+        case WM_CLOSE:{
+            PostQuitMessage(0);
             break;
         }
 
@@ -25,12 +29,13 @@ OWindow::OWindow() {
     wc.lpszClassName = "OGL3DWindow";
     wc.lpfnWndProc = &WndProc;
 
-    assert(RegisterClassEx(&wc));
+    auto classId = RegisterClassEx(&wc);
+    assert(classId);
 
     RECT rc = {0, 0, 1024, 768};
     AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false);
 
-    m_handle = CreateWindowEx(NULL, "OGL3DWindow", "Creator Window | 3D openGL", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+    m_handle = CreateWindowEx(NULL, MAKEINTATOM(classId), "Creator Window | 3D openGL", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
                    CW_USEDEFAULT, CW_USEDEFAULT, rc.right-rc.left, rc.bottom-rc.top, NULL, NULL, NULL, NULL);
 
     assert(m_handle);
@@ -43,12 +48,4 @@ OWindow::OWindow() {
 
 OWindow::~OWindow() {
     DestroyWindow((HWND)m_handle);
-}
-
-void OWindow::onDestroy() {
-    m_handle = nullptr;
-}
-
-bool OWindow::isClosed() {
-    return !m_handle;
 }
