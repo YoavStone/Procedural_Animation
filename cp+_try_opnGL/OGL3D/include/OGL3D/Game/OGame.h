@@ -1,6 +1,8 @@
 #ifndef PROCEDURAL_ANIMATION_OGAME_H
 #define PROCEDURAL_ANIMATION_OGAME_H
 
+#include <memory>
+
 
 class OWindow;
 
@@ -13,7 +15,7 @@ public:
     void quit();
 protected:
     bool m_isRunning = true;
-    OWindow* m_display = nullptr;
+    std::unique_ptr<OWindow> m_display;
 };
 
 
