@@ -1,15 +1,17 @@
-#include "../../../../include/OGL3D/Game/Graphics/OGraphicsEngine.h"
-#include "../../../../vendor/glad/include/glad/glad_wgl.h"
-#include "../../../../vendor/glad/include/glad/glad.h"
+#include "../../../include/OGL3D/Graphics/OGraphicsEngine.h"
+#include "../../../vendor/glad/include/glad/glad_wgl.h"
+#include "../../../vendor/glad/include/glad/glad.h"
 #include <assert.h>
 #include <stdexcept>
 
 
-OGraphicsEngine::OGraphicsEngine() {
+OGraphicsEngine::OGraphicsEngine()
+{
     WNDCLASSEX wc = {};
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.lpszClassName = "OGL3DDummyWindow";
     wc.lpfnWndProc = DefWindowProc;
+    wc.style = CS_OWNDC;
 
     auto classId = RegisterClassEx(&wc);
     assert(classId);
@@ -40,10 +42,12 @@ OGraphicsEngine::OGraphicsEngine() {
 
     wglMakeCurrent(dummyDC, dummyContext);
 
-    if(!gladLoadWGL(dummyDC)){
+    if(!gladLoadWGL(dummyDC))
+    {
         throw std::runtime_error("OGraphicsEngine - Error - gladLoadWGL failed");
     }
-    if(!gladLoadGL()){
+    if(!gladLoadGL())
+    {
         throw std::runtime_error("OGraphicsEngine - Error - gladLoadGL failed");
     }
 
@@ -54,6 +58,12 @@ OGraphicsEngine::OGraphicsEngine() {
 
 }
 
-OGraphicsEngine::~OGraphicsEngine() {
+OGraphicsEngine::~OGraphicsEngine()
+{
+}
 
+void OGraphicsEngine::clear(const OVec4 &color)
+{
+    glClearColor(color.x, color.y, color.z, color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
 }

@@ -1,0 +1,8 @@
+#ifndef GITHUB_OPREREQUISITES_H
+#define GITHUB_OPREREQUISITES_H
+
+
+typedef float f32;
+
+
+#endif //GITHUB_OPREREQUISITES_H
