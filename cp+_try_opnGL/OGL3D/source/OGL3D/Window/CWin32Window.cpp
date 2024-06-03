@@ -12,7 +12,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         case WM_DESTROY:
         {
-            OWindow* window = (OWindow* )GetWindowLongPtr(hwnd, GWLP_USERDATA);
+            CWin32Window* window = (CWin32Window* )GetWindowLongPtr(hwnd, GWLP_USERDATA);
             break;
         }
         case WM_CLOSE:
@@ -27,12 +27,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 
-OWindow::OWindow()
+CWin32Window::CWin32Window()
 {
     WNDCLASSEX wc = {};
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.lpszClassName = "OGL3DWindow";
     wc.lpfnWndProc = &WndProc;
+    wc.style = CS_OWNDC;
 
     auto classId = RegisterClassEx(&wc);
     assert(classId);
@@ -84,18 +85,18 @@ OWindow::OWindow()
 
 }
 
-OWindow::~OWindow()
+CWin32Window::~CWin32Window()
 {
     wglDeleteContext(HGLRC(m_context));
     DestroyWindow(HWND(m_handle));
 }
 
-void OWindow::makeCurrentContext()
+void CWin32Window::makeCurrentContext()
 {
     wglMakeCurrent(GetDC(HWND(m_handle)), HGLRC(m_context));
 }
 
-void OWindow::present(bool vsync)
+void CWin32Window::present(bool vsync)
 {
     wglSwapIntervalEXT(vsync);
     wglSwapLayerBuffers(GetDC(HWND(m_handle)), WGL_SWAP_MAIN_PLANE);

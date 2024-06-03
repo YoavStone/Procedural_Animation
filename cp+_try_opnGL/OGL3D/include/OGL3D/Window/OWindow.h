@@ -2,10 +2,10 @@
 #define PROCEDURAL_ANIMATION_OWINDOW_H
 
 
-class OWindow {
+class CWin32Window {
 public:
-    OWindow();
-    ~OWindow();
+    CWin32Window();
+    ~CWin32Window();
 
     void makeCurrentContext();
     void present(bool vsync);
