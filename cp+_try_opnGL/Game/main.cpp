@@ -10,8 +10,8 @@ int main()
     }
     catch(const std::exception& e)
     {
-        std::cout << "EXCEPTION AT MAIN: " << e.what() << "\n";
-        return 1;
+        std::cout << "EXCEPTION AT MAIN: " << e.what() << std::endl;
+        return -1;
     }
 
     return 0;

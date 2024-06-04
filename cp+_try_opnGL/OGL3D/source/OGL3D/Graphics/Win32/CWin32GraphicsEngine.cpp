@@ -1,6 +1,7 @@
 #include "../../../../include/OGL3D/Graphics/OGraphicsEngine.h"
 #include "../../../../vendor/glad/include/glad/glad_wgl.h"
 #include "../../../../vendor/glad/include/glad/glad.h"
+
 #include <assert.h>
 #include <stdexcept>
 

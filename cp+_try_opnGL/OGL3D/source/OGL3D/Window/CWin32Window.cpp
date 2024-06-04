@@ -101,3 +101,10 @@ void CWin32Window::present(bool vsync)
     wglSwapIntervalEXT(vsync);
     wglSwapLayerBuffers(GetDC(HWND(m_handle)), WGL_SWAP_MAIN_PLANE);
 }
+
+ORect CWin32Window::getInnerSize()
+{
+    RECT rc = {};
+    GetClientRect((HWND)m_handle, &rc);
+    return ORect(rc.right-rc.left, rc.bottom-rc.top);
+}

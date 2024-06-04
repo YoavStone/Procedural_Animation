@@ -2,11 +2,12 @@
 #define PROCEDURAL_ANIMATION_OGAME_H
 
 #include <memory>
+#include "../Graphics/OGraphicsEngine.h"
 
-class OGraphicsEngine;
 class CWin32Window;
 
-class OGame{
+class OGame
+{
 public:
     OGame();
     ~OGame();
@@ -15,12 +16,17 @@ public:
     virtual void onUpdate();
     virtual void onQuit();
 
+
     void run();
     void quit();
 protected:
     bool m_isRunning = true;
+
     std::unique_ptr<OGraphicsEngine> m_graphicsEngine;
     std::unique_ptr<CWin32Window> m_display;
+
+
+    OVertexArrayObjectPtr m_triangleVAO;
 };
 
 
